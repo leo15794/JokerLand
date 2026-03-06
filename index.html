@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JokerGol - Bono de Bienvenida</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #0b0b0f;
+      --bg-soft: #12121a;
+      --card: #171723;
+      --gold: #f5c451;
+      --gold-strong: #ffb800;
+      --green: #21f59a;
+      --green-dark: #11c777;
+      --text: #ffffff;
+      --muted: #b7b7c9;
+      --border: rgba(255, 255, 255, 0.08);
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background:
+        radial-gradient(circle at top, rgba(255, 184, 0, 0.16), transparent 30%),
+        linear-gradient(180deg, #0c0c11 0%, #09090d 100%);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.4;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .container {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(12px);
+      background: rgba(10, 10, 14, 0.8);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .topbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 0;
+    }
+
+    .logo-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--gold), #fff0b3);
+      display: grid;
+      place-items: center;
+      color: #111;
+      font-weight: 900;
+      font-size: 18px;
+      box-shadow: 0 6px 18px rgba(245, 196, 81, 0.3);
+      overflow: hidden;
+    }
+
+    .logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .brand-text strong {
+      font-size: 20px;
+      letter-spacing: 0.3px;
+    }
+
+    .brand-text span {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .top-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 48px;
+      padding: 0 22px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      font-weight: 800;
+      font-size: 15px;
+      transition: 0.2s ease;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-outline {
+      border-color: rgba(255,255,255,0.18);
+      color: #fff;
+      background: rgba(255,255,255,0.03);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--green), var(--green-dark));
+      color: #07120d;
+      box-shadow: 0 12px 26px rgba(33, 245, 154, 0.22);
+    }
+
+    .hero {
+      padding: 56px 0 34px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(245, 196, 81, 0.08);
+      color: var(--gold);
+      border: 1px solid rgba(245, 196, 81, 0.18);
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
+
+    .hero h1 {
+      font-size: clamp(36px, 6vw, 64px);
+      line-height: 0.95;
+      font-weight: 900;
+      margin-bottom: 18px;
+      letter-spacing: -1.5px;
+    }
+
+    .hero h1 .gold {
+      color: var(--gold);
+    }
+
+    .hero p {
+      color: var(--muted);
+      font-size: 18px;
+      max-width: 620px;
+      margin-bottom: 26px;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+    }
+
+    .hero-legal {
+      font-size: 13px;
+      color: #9c9cb0;
+    }
+
+    .offer-card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      padding: 26px;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .offer-card::before {
+      content: "";
+      position: absolute;
+      inset: auto -20% -30% auto;
+      width: 260px;
+      height: 260px;
+      background: radial-gradient(circle, rgba(245,196,81,0.18), transparent 70%);
+      pointer-events: none;
+    }
+
+    .offer-badge {
+      display: inline-block;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(33, 245, 154, 0.1);
+      color: var(--green);
+      font-size: 12px;
+      font-weight: 800;
+      margin-bottom: 16px;
+      border: 1px solid rgba(33, 245, 154, 0.18);
+    }
+
+    .offer-title {
+      font-size: 18px;
+      color: #ddd;
+      margin-bottom: 6px;
+      font-weight: 700;
+    }
+
+    .offer-amount {
+      font-size: clamp(36px, 4.8vw, 54px);
+      line-height: 1;
+      font-weight: 900;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+
+    .offer-sub {
+      color: var(--muted);
+      font-size: 15px;
+      margin-bottom: 22px;
+    }
+
+    .offer-points {
+      display: grid;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .offer-point {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #f1f1f4;
+      font-size: 15px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 0 4px rgba(33,245,154,0.12);
+      flex: 0 0 auto;
+    }
+
+    .benefits {
+      padding: 18px 0 32px;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: clamp(28px, 4vw, 40px);
+      font-weight: 900;
+      margin-bottom: 10px;
+    }
+
+    .section-sub {
+      text-align: center;
+      max-width: 760px;
+      margin: 0 auto 28px;
+      color: var(--muted);
+      font-size: 17px;
+    }
+
+    .benefit-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+
+    .benefit-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 24px 18px;
+      text-align: center;
+      box-shadow: var(--shadow);
+    }
+
+    .benefit-icon {
+      width: 62px;
+      height: 62px;
+      margin: 0 auto 14px;
+      border-radius: 18px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, rgba(245,196,81,0.12), rgba(33,245,154,0.08));
+      border: 1px solid rgba(255,255,255,0.08);
+      font-size: 28px;
+    }
+
+    .benefit-card h3 {
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+
+    .benefit-card p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .steps {
+      padding: 30px 0 28px;
+    }
+
+    .steps-wrap {
+      background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      padding: 28px;
+      box-shadow: var(--shadow);
+    }
+
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-top: 22px;
+    }
+
+    .step-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 22px;
+      padding: 20px;
+    }
+
+    .step-number {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-weight: 900;
+      color: #111;
+      background: var(--gold);
+      margin-bottom: 14px;
+    }
+
+    .step-card h4 {
+      font-size: 16px;
+      margin-bottom: 8px;
+    }
+
+    .step-card p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .deposits {
+      padding: 34px 0;
+    }
+
+    .deposit-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .deposit-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 22px;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .deposit-card::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--gold), var(--green));
+    }
+
+    .deposit-card .tag {
+      color: var(--gold);
+      font-size: 12px;
+      font-weight: 800;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+    }
+
+    .deposit-card h3 {
+      font-size: 22px;
+      margin-bottom: 10px;
+    }
+
+    .deposit-card ul {
+      list-style: none;
+      display: grid;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .final-cta {
+      padding: 18px 0 42px;
+    }
+
+    .final-cta-box {
+      background: linear-gradient(135deg, rgba(245,196,81,0.12), rgba(33,245,154,0.08));
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 30px;
+      padding: 34px 24px;
+      text-align: center;
+      box-shadow: var(--shadow);
+    }
+
+    .final-cta-box h2 {
+      font-size: clamp(28px, 4vw, 42px);
+      margin-bottom: 12px;
+    }
+
+    .final-cta-box p {
+      max-width: 740px;
+      margin: 0 auto 18px;
+      color: var(--muted);
+      font-size: 17px;
+    }
+
+    .support {
+      padding-bottom: 44px;
+    }
+
+    .support-box {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.03);
+      border-radius: 24px;
+      padding: 20px 24px;
+    }
+
+    .support-text strong {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 20px;
+    }
+
+    .support-text span {
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 18px 0 28px;
+      text-align: center;
+      color: #9c9cb0;
+      font-size: 13px;
+    }
+
+    @media (max-width: 980px) {
+      .hero-grid,
+      .benefit-grid,
+      .steps-grid,
+      .deposit-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .topbar-inner,
+      .support-box {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .hero {
+        padding-top: 34px;
+      }
+
+      .hero-grid,
+      .benefit-grid,
+      .steps-grid,
+      .deposit-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero h1 {
+        line-height: 1;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      .hero-cta,
+      .top-actions {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <div class="logo-wrap">
+        <div class="logo">
+          <!-- Reemplazá esto por tu logo -->
+          <!-- <img src="logo-jokergol.png" alt="JokerGol"> -->
+          JG
+        </div>
+        <div class="brand-text">
+          <strong>JokerGol</strong>
+          <span>Bonos exclusivos para nuevos usuarios</span>
+        </div>
+      </div>
+
+      <div class="top-actions">
+        <a class="btn btn-outline" href="https://TU-LINK-AQUI.com" target="_blank" rel="noopener noreferrer">Entrar</a>
+        <a class="btn btn-primary" href="https://TU-LINK-AQUI.com" target="_blank" rel="noopener noreferrer">Registrarse</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow">⚡ Bono activo por tiempo limitado</div>
+          <h1>TU REGISTRO <span class="gold">VALE ORO</span></h1>
+          <p>
+            Registrate hoy y obtené hasta <strong>$1.000.000 en bonos</strong> más
+            <strong>Free Spins</strong> en tu paquete de bienvenida.
+          </p>
+
+          <div class="hero-cta">
+            <a class="btn btn-primary" href="https://TU-LINK-AQUI.com" target="_blank" rel="noopener noreferrer">Registrate ahora</a>
+            <a class="btn btn-outline" href="#depositos">Ver beneficios</a>
+          </div>
+
+          <div class="hero-legal">+18 | Aplican T&amp;C | Juega responsablemente</div>
+        </div>
+
+        <div class="offer-card">
+          <div class="offer-badge">PAQUETE DE BIENVENIDA</div>
+          <div class="offer-title">Hasta</div>
+          <div class="offer-amount">$1.000.000</div>
+          <div class="offer-sub">en bonos + Free Spins para nuevos usuarios</div>
+
+          <div class="offer-points">
+            <div class="offer-point"><span class="dot"></span> Registro rápido en 1 minuto</div>
+            <div class="offer-point"><span class="dot"></span> Beneficios desde tu primer depósito</div>
+            <div class="offer-point"><span class="dot"></span> Soporte directo por WhatsApp</div>
+            <div class="offer-point"><span class="dot"></span> Activación simple y segura</div>
+          </div>
+
+          <a class="btn btn-primary" href="https://TU-LINK-AQUI.com" target="_blank" rel="noopener noreferrer">Registrarse y reclamar</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="benefits container">
+      <h2 class="section-title">Bienvenido a una experiencia con beneficios reales</h2>
+      <p class="section-sub">
+        Accedé a promociones escalonadas, recompensas por depósito y asistencia rápida para empezar sin vueltas.
+      </p>
+
+      <div class="benefit-grid">
+        <article class="benefit-card">
+          <div class="benefit-icon">🎁</div>
+          <h3>Bonos potentes</h3>
+          <p>Promociones pensadas para darte más valor desde el inicio.</p>
+        </article>
+
+        <article class="benefit-card">
+          <div class="benefit-icon">🎰</div>
+          <h3>Free Spins</h3>
+          <p>Recibí giros gratis incluidos en tu paquete de bienvenida.</p>
+        </article>
+
+        <article class="benefit-card">
+          <div class="benefit-icon">⚽</div>
+          <h3>Apuesta y jugá</h3>
+          <p>Accedé a casino y deportes desde una misma cuenta.</p>
+        </article>
+
+        <article class="benefit-card">
+          <div class="benefit-icon">💬</div>
+          <h3>Soporte rápido</h3>
+          <p>Te ayudamos a registrarte y activar tus beneficios sin perder tiempo.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="steps container">
+      <div class="steps-wrap">
+        <h2 class="section-title">Cómo empezar</h2>
+        <p class="section-sub">Hacelo en pocos pasos y activá tu paquete de bienvenida.</p>
+
+        <div class="steps-grid">
+          <article class="step-card">
+            <div class="step-number">1</div>
+            <h4>Creá tu cuenta</h4>
+            <p>Completá el registro desde el botón principal.</p>
+          </article>
+
+          <article class="step-card">
+            <div class="step-number">2</div>
+            <h4>Verificá tus datos</h4>
+            <p>Ingresá correctamente para activar la cuenta.</p>
+          </article>
+
+          <article class="step-card">
+            <div class="step-number">3</div>
+            <h4>Hacé tu depósito</h4>
+            <p>Accedé a los beneficios según la promoción vigente.</p>
+          </article>
+
+          <article class="step-card">
+            <div class="step-number">4</div>
+            <h4>Reclamá tu bono</h4>
+            <p>Empezá a jugar con tus promociones activadas.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="deposits container" id="depositos">
+      <h2 class="section-title">Tu paquete de bienvenida</h2>
+      <p class="section-sub">Ejemplo de beneficios escalonados para comunicar la promo de forma clara.</p>
+
+      <div class="deposit-grid">
+        <article class="deposit-card">
+          <div class="tag">1er depósito</div>
+          <h3>x2 + 20 Free Spins</h3>
+          <ul>
+            <li>100% de bono</li>
+            <li>20 giros gratis</li>
+            <li>Ideal para empezar fuerte</li>
+          </ul>
+        </article>
+
+        <article class="deposit-card">
+          <div class="tag">2do depósito</div>
+          <h3>100% + Cashback</h3>
+          <ul>
+            <li>100% de bono</li>
+            <li>5% cashback</li>
+            <li>Más valor en tu continuidad</li>
+          </ul>
+        </article>
+
+        <article class="deposit-card">
+          <div class="tag">3er depósito</div>
+          <h3>50% + 10% Cashback</h3>
+          <ul>
+            <li>50% de bono</li>
+            <li>10% cashback</li>
+            <li>Beneficio extra por seguir jugando</li>
+          </ul>
+        </article>
+
+        <article class="deposit-card">
+          <div class="tag">4to depósito</div>
+          <h3>150% + 25 Free Spins</h3>
+          <ul>
+            <li>150% de bono</li>
+            <li>25 giros gratis</li>
+            <li>Cierre fuerte del welcome pack</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="final-cta container">
+      <div class="final-cta-box">
+        <h2>Activá tu bono hoy</h2>
+        <p>
+          Entrá ahora, completá tu registro y accedé a una propuesta fuerte para nuevos usuarios.
+          Cuanto antes entres, antes podés reclamar los beneficios.
+        </p>
+        <a class="btn btn-primary" href="https://TU-LINK-AQUI.com" target="_blank" rel="noopener noreferrer">Quiero registrarme</a>
+      </div>
+    </section>
+
+    <section class="support container">
+      <div class="support-box">
+        <div class="support-text">
+          <strong>¿Necesitás ayuda?</strong>
+          <span>Escribinos por WhatsApp y te guiamos con el registro.</span>
+        </div>
+        <a class="btn btn-outline" href="https://wa.link/TU-CODIGO" target="_blank" rel="noopener noreferrer">Hablar por WhatsApp</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      +18 | Aplican términos y condiciones | Juega responsablemente
+    </div>
+  </footer>
+</body>
+</html>
